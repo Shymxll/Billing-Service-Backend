@@ -40,7 +40,7 @@ public class CompanyServiceİmp implements CompanyService{
             comp.setProductId(companyRegDto.getProductId());
             comp.setVersion("Demo");
             comp.setWallet(0);
-            comp.setEx_date(demoDateMaker());
+            comp.setExpireDate(demoDateMaker());
             comp.setMonthlyAmount(companyRegDto.getMonthlyAmount());
             companyRepo.save(comp);
             //response
@@ -91,7 +91,7 @@ public class CompanyServiceİmp implements CompanyService{
         CompanyResponse companyResponse = new CompanyResponse();
         companyResponse.setName(company.get().getName().toString());
         companyResponse.setTaxNumber(company.get().getTaxNumber());
-        companyResponse.setEx_date(company.get().getEx_date());
+        companyResponse.setEx_date(company.get().getExpireDate());
         companyResponse.setMonthlyAmount(company.get().getMonthlyAmount());
         companyResponse.setProductId(company.get().getProductId());
         companyResponse.setVersion(company.get().getVersion());
@@ -142,11 +142,11 @@ public class CompanyServiceİmp implements CompanyService{
 
     public void changeExDate(Company comp){    
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(comp.getEx_date());        
-        long payying_month = comp.getWallet() / 50;           
+        calendar.setTime(comp.getExpireDate());        
+        long payying_month = comp.getWallet() / (long)comp.getMonthlyAmount();        
         calendar.add(Calendar.MONTH,(int) payying_month);    
-        comp.setEx_date(calendar.getTime());
-        comp.setWallet(comp.getWallet()-(payying_month*50));
+        comp.setExpireDate(calendar.getTime());
+        comp.setWallet(comp.getWallet()-(payying_month*(long)comp.getMonthlyAmount()));
         comp.setVersion("Licensed");
         companyRepo.save(comp);
             
@@ -172,12 +172,12 @@ public class CompanyServiceİmp implements CompanyService{
 
        if(company.isPresent()){
         list.clear();
-        if(company.get().getEx_date().compareTo(Calendar.getInstance().getTime()) > 0){
-            list.add(new ExpireResponse(true,company.get().getEx_date()));
+        if(company.get().getExpireDate().compareTo(Calendar.getInstance().getTime()) > 0){
+            list.add(new ExpireResponse(true,company.get().getExpireDate()));
             return new ResponseMain(0,"Success",list);
         }
         else{
-            list.add(new ExpireResponse(false,company.get().getEx_date()));
+            list.add(new ExpireResponse(false,company.get().getExpireDate()));
             return new ResponseMain(1,"Error",list);
         }
 

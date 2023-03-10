@@ -22,7 +22,7 @@ public class Company {
     private int monthlyAmount;
     private int productId;
     private String version;
-    private Date ex_date;
+    private Date expireDate;
     private long wallet;
     
 }
