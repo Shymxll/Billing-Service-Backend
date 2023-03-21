@@ -1,4 +1,7 @@
 package com.service.Billing.controller;
+
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +15,9 @@ import com.service.Billing.service.BillingService;
 import com.service.Billing.service.CompanyService;
 
 
+@Slf4j
 @RestController
 @RequestMapping("/bill")
-
 public class BillingController {
     CompanyService companyService;
     BillingService billingService;
@@ -22,11 +25,11 @@ public class BillingController {
     public BillingController(CompanyService companyService, BillingService billingService) {
         this.companyService = companyService;
         this.billingService = billingService;
+
     }
 
     @PostMapping("/pay")
     public ResponseMain newPayment(@RequestBody PayyingDto payyingDto){
-        
         return billingService.newPayment(payyingDto,(companyService.newPayment(payyingDto)));
 
         

@@ -26,8 +26,8 @@ public interface CompanyService {
 
     ResponseMain deleteCompany(DeleteDto deleteDto);
 
-    Optional<List<Company>>  findByTaxNumber(long taxNumber);
-
+    Optional<List<Company>>  findByTaxNumber(int taxNumber);
+    ResponseMain getByTaxNumber(int taxNumber);
     ResponseMain newPayment(PayyingDto payyingDto);
 
     ResponseMain isExpire(ExpireDto expireDto);

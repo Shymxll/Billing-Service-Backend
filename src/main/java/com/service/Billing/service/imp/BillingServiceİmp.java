@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.service.Billing.dto.CompanyCheckDto;
@@ -22,7 +23,7 @@ import com.service.Billing.service.BillingService;
 import com.service.Billing.service.CompanyService;
 
 import lombok.RequiredArgsConstructor;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BillingServiceİmp implements BillingService {
@@ -35,29 +36,32 @@ public class BillingServiceİmp implements BillingService {
         ResponseMain newResponseMain = new ResponseMain(1,"Error",null);
         
         Optional<Company> compOptional = companyService.searchTaxandProducId(payyingDto.getTaxNumber(),payyingDto.getProductId());
+        int taxNumber = payyingDto.getTaxNumber();
         if(compOptional.isPresent()){
-        Billing bill = new Billing();
-        PayResponse payResponse = new PayResponse();
-        String transactionId = createTransactionId();
-        bill.setAmount(payyingDto.getAmount());
-        bill.setMonthlyAmount(compOptional.get().getMonthlyAmount());
-        bill.setPayDate(new Date());
-        bill.setTaxNumber(payyingDto.getTaxNumber());
-        bill.setProductId(payyingDto.getProductId());        
-        bill.setTransactionId(transactionId);
-        billingRepo.save(bill);
+            PayResponse payResponse = new PayResponse();
+            Billing bill = new Billing();
+            String transactionId = createTransactionId();
+            bill.setAmount(payyingDto.getAmount());
+            bill.setMonthlyAmount(compOptional.get().getMonthlyAmount());
+            bill.setPayDate(new Date());
+            bill.setTaxNumber(payyingDto.getTaxNumber());
+            bill.setProductId(payyingDto.getProductId());
+            bill.setTransactionId(transactionId);
+            billingRepo.save(bill);
         
         //created response
-        newResponseMain.setCode(0);
-        newResponseMain.setMessage("Success");
-        payResponse = createBillingResponseBody(bill);
-        list.clear();
-        list.add(payResponse);
-        newResponseMain.setResponse(list);
-        
+            newResponseMain.setMessage("Success");
+            newResponseMain.setCode(0);
+            payResponse = createBillingResponseBody(bill);
+            list.clear();
+            list.add(payResponse);
+            newResponseMain.setResponse(list);
+            log.info(taxNumber+":  Succesfull payying!" +"  transactionId:" +bill.getTransactionId());
+
         }
         else{
             newResponseMain.setResponse(null);
+            log.info(taxNumber+" Unsuccelfuly payying! TaxNumber or ProductId is wrong");
         }
         return newResponseMain;
     }
@@ -66,7 +70,6 @@ public class BillingServiceİmp implements BillingService {
     public ResponseMain status(CompanyStatusDto companyStatusDto) {
         ResponseMain responseMain = new ResponseMain(1, "Error", null);
         Optional<Billing> bill =billingRepo.findByTransactionId(companyStatusDto.getTransactionId());
-
         if(bill.isPresent()){
             
             StatusResponse statusResponse = new StatusResponse();
@@ -79,8 +82,9 @@ public class BillingServiceİmp implements BillingService {
             responseMain.setResponse(list);
             responseMain.setCode(0);
             responseMain.setMessage("Success");
-            System.out.println(bill.get().getTransactionId()+"-"+bill.get().getTaxNumber());     
+            log.info("Status query sent \n"+" Tax number:"+bill.get().getTaxNumber()+"Transaction id:"+ bill.get().getTransactionId());
         }
+
             
         
         return responseMain;
@@ -98,7 +102,7 @@ public class BillingServiceİmp implements BillingService {
 
     }
     private String createTransactionId(){
-        String id = "nps" + System.currentTimeMillis();
+        String id = "nsp" + System.currentTimeMillis();
         return id;
     }
 
@@ -106,16 +110,18 @@ public class BillingServiceİmp implements BillingService {
     public ResponseMain check(CompanyCheckDto ccd) {
            Optional<List<Company>> companyListO = companyService.findByTaxNumber(ccd.getTaxNumber());
            ResponseMain responseMain = new ResponseMain(1,"Error",null);
-           
-    
+
+
            if(companyListO.get().size()!=0){
             responseMain.setCode(0);
             responseMain.setMessage("Success");
+
             responseMain.setResponse(companyListO.get().stream().map(p ->mappingResponse(p)).collect(Collectors.toList()));
+            log.info("Checked company with tax number\n"+" Tax number:"+ccd.getTaxNumber());
            }
            return responseMain;
-            
-         
+
+
     }
     private CheckResponse mappingResponse(Company company){
         CheckResponse checkResponse = new CheckResponse();

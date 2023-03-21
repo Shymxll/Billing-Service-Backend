@@ -1,5 +1,7 @@
 package com.service.Billing.controller;
 
+import com.service.Billing.entity.Company;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,17 +20,20 @@ import com.service.Billing.response.ResponseMain;
 import com.service.Billing.service.BillingService;
 import com.service.Billing.service.CompanyService;
 
+import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @RestController
 @CrossOrigin
 
 public class CompanyController {
     private CompanyService companyService;
-    public CompanyController(CompanyService companyService,BillingService billingService) {
+    public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/admin/id/{id}")
     public ResponseMain getCompanyById(@PathVariable("id") long id){
 
         return companyService.getCompanyById(id);
@@ -53,6 +58,12 @@ public class CompanyController {
     public ResponseMain isExpire(@RequestBody ExpireDto expireDto){
 
         return companyService.isExpire(expireDto);
+    }
+
+    @GetMapping("admin/tax/{tax}")
+    public ResponseMain getByTaxNumber(@PathVariable("tax") int tax){
+
+        return companyService.getByTaxNumber(tax);
     }
 
 }
