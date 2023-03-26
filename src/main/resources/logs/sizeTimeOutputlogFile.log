@@ -1,25 +1,7 @@
-2023-03-21 12:37:17  INFO   : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-21 12:37:17  INFO   : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-21 12:37:17  WARN   : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-21 12:37:18  INFO   : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49cdce4f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2efdadd, org.springframework.security.web.context.SecurityContextHolderFilter@7736bac2, org.springframework.security.web.header.HeaderWriterFilter@1da62029, org.springframework.security.web.authentication.logout.LogoutFilter@67953bf8, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@138b0c5f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@347e5461, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@36acbf49, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@704a1521, org.springframework.security.web.access.ExceptionTranslationFilter@69e209f7, org.springframework.security.web.access.intercept.AuthorizationFilter@25fc3901]
-2023-03-21 12:37:18  INFO   : LiveReload server is running on port 35729
-2023-03-21 12:37:18  INFO   : Starting ProtocolHandler ["http-nio-8080"]
-2023-03-21 12:37:19  INFO   : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-21 12:37:19  INFO   : Started BillingApplication in 4.471 seconds (process running for 4.939)
-2023-03-21 12:37:45  INFO   : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-21 12:37:45  INFO   : Initializing Servlet 'dispatcherServlet'
-2023-03-21 12:37:45  INFO   : Completed initialization in 0 ms
-2023-03-21 12:37:45  INFO   : Status query sent 
-Transaction id:nps1678444627577 Tax number:12
-2023-03-21 12:37:48  INFO   : Failed to delete company!
-Tax Number:222  Product id:2
-2023-03-21 12:37:50  INFO   : Checked company with tax number
- Tax number:123456
-2023-03-21 12:37:53  INFO   : 111 Unsuccelfuly payying! TaxNumber or ProductId is wrong
-2023-03-21 12:38:03  INFO   : 123456 Unsuccelfuly payying! TaxNumber or ProductId is wrong
-2023-03-21 12:38:06  INFO   : Payment has been successfuly
-Tax Number:123456  Product id:1
-2023-03-21 12:38:06  INFO   : 123456:  Succesfull payying!  transactionId:nsp1679387886956
-2023-03-21 12:39:23  INFO   : Application is expired
-Tax Number:12  Product id:2
-2023-03-21 12:47:03  INFO   : 12: Successfuly update
+2023-03-26 22:52:17  INFO   : LiveReload server is running on port 35729
+2023-03-26 22:52:17  INFO   : Starting ProtocolHandler ["http-nio-8080"]
+2023-03-26 22:52:17  INFO   : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-26 22:52:17  INFO   : Started BillingApplication in 4.69 seconds (process running for 5.161)
+2023-03-26 22:52:29  INFO   : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-26 22:52:29  INFO   : Initializing Servlet 'dispatcherServlet'
+2023-03-26 22:52:29  INFO   : Completed initialization in 0 ms
