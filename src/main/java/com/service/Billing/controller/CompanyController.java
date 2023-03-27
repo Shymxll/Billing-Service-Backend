@@ -1,6 +1,9 @@
 package com.service.Billing.controller;
 
 import com.service.Billing.entity.Company;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,15 +26,19 @@ import com.service.Billing.service.CompanyService;
 import java.util.List;
 import java.util.Optional;
 
+import static com.service.Billing.config.SecurityConfig.SECURITY_CONFIG_NAME;
+
 @Slf4j
 @RestController
 @CrossOrigin
 
+@SecurityRequirement(name = SECURITY_CONFIG_NAME)
 public class CompanyController {
     private CompanyService companyService;
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
+
 
     @GetMapping("/admin/id/{id}")
     public ResponseMain getCompanyById(@PathVariable("id") long id){

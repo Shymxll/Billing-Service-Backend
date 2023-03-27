@@ -1,5 +1,6 @@
 package com.service.Billing.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +15,13 @@ import com.service.Billing.response.ResponseMain;
 import com.service.Billing.service.BillingService;
 import com.service.Billing.service.CompanyService;
 
+import static com.service.Billing.config.SecurityConfig.SECURITY_CONFIG_NAME;
+
 
 @Slf4j
 @RestController
 @RequestMapping("/bill")
+@SecurityRequirement(name = SECURITY_CONFIG_NAME)
 public class BillingController {
     CompanyService companyService;
     BillingService billingService;
