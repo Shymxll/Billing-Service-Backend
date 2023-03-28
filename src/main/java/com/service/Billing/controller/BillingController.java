@@ -3,6 +3,7 @@ package com.service.Billing.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,22 +32,24 @@ public class BillingController {
         this.billingService = billingService;
 
     }
-
+    @Cacheable(cacheNames="bill", key="#payyingdto.taxNumber")
     @PostMapping("/pay")
     public ResponseMain newPayment(@RequestBody PayyingDto payyingDto){
         return billingService.newPayment(payyingDto,(companyService.newPayment(payyingDto)));
 
         
     }
+    @Cacheable(cacheNames="bill", key="#companyCheckDto.taxNumber")
     @PostMapping("/check")
     public ResponseMain check(@RequestBody CompanyCheckDto companyCheckDto){
         return billingService.check(companyCheckDto);
     }
 
+    @Cacheable(cacheNames="bill", key="#companyStatusDto.taxNumber")
     @PostMapping("/status")
-    public ResponseMain status(@RequestBody CompanyStatusDto csd){
+    public ResponseMain status(@RequestBody CompanyStatusDto companyStatusDto){
 
-        return billingService.status(csd);
+        return billingService.status(companyStatusDto);
     }
    
     

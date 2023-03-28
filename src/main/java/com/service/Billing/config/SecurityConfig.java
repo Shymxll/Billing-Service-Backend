@@ -3,7 +3,9 @@ package com.service.Billing.config;
 import com.service.Billing.security.jwt.JWTAuthenticationFilter;
 import com.service.Billing.security.user.AppUserDetailsService;
 
+
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +15,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,9 @@ import static io.swagger.v3.oas.annotations.enums.SecuritySchemeType.HTTP;
 
 
 @Configuration
+
 @SecurityScheme(name = SecurityConfig.SECURITY_CONFIG_NAME, in = HEADER, type = HTTP, scheme = "bearer", bearerFormat = "JWT")
+
 public class SecurityConfig{
 
     public static final String SECURITY_CONFIG_NAME = "App Bearer token";
@@ -38,6 +41,7 @@ public class SecurityConfig{
 
     @Autowired
     private AppUserDetailsService userDetailsService;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
